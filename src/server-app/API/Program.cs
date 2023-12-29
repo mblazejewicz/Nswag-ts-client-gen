@@ -1,3 +1,7 @@
+using System.Text.Json;
+using System.Web;
+using Microsoft.AspNetCore.Mvc;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -11,7 +15,8 @@ var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{app.UseCors(options =>
+{
+    app.UseCors(options =>
     {
         options.AllowAnyOrigin();
         options.AllowAnyHeader();
@@ -27,4 +32,8 @@ app.UseAuthorization();
 
 app.MapControllers();
 
+app.MapGet("/", () => "Hello World!");
+
+app.MapNotesEndpoints();
 app.Run();
+
